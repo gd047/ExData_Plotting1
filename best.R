@@ -1,16 +1,3 @@
-
-head(outcome)
-
-
-## You may get a warning about NAs being introduced; that is okay
-hist(outcome[, 11])
-
-# https://gist.github.com/skranz/9681509
-
-
-
-
-
 best <- function(state, outcome){
   
   #### load dplyr and helper functions ######################################
@@ -57,27 +44,18 @@ best <- function(state, outcome){
   #data[, 23] <- as.numeric(data[, 23])
   
   cols = c("Provider.Number:Phone.Number",
-         switch(outcome,
-           "heart attack" = "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack",
-           "heart failure" = "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure",
-           "pneumonia" = "Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia",
-           stop("invalid outcome"))
-         )
+           switch(outcome,
+                  "heart attack" = "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack",
+                  "heart failure" = "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure",
+                  "pneumonia" = "Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia",
+                  stop("invalid outcome"))
+  )
   
-res <-  data %.% 
+  res <-  data %.% 
     s_select(cols) %>%
     s_filter(paste0("!is.na(",last(cols),") & State == '",state,"'")) %>%  # exclude null
     s_arrange(paste0(last(cols),", Hospital.Name")) %>% # reorder 
     summarize(first(Hospital.Name))
-
-return(res[[1]])
+  
+  return(res[[1]])
 }
-
-
-state = "TX"
-outcome = "heart attack"
-
-best("TX", "heart attack")
-best("TX", "heart failure")
-best("MD", "heart attack")
-best("MD", "pneumonia")
