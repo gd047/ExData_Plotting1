@@ -69,7 +69,7 @@ res <-  data %.%
     s_arrange(paste0(last(cols),", Hospital.Name")) %>% # reorder 
     summarize(first(Hospital.Name))
 
-return(res[[1]])
+return(res[,1])
 }
 
 
@@ -80,3 +80,5 @@ best("TX", "heart attack")
 best("TX", "heart failure")
 best("MD", "heart attack")
 best("MD", "pneumonia")
+best("BB", "heart attack")
+best("NY", "hert attack")

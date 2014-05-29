@@ -61,5 +61,5 @@ best <- function(state, outcome){
     s_arrange(paste0(last(cols),", Hospital.Name")) %>% # reorder 
     summarize(first(Hospital.Name))
   
-  return(res[[1]])
+  return(res[,1])
 }
