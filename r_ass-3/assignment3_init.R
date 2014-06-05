@@ -74,8 +74,8 @@ return(res[,1])
 
 
 
-state = "MD"
-outcome = "heart attack"
+state = "TX"
+outcome = "heart failure"
 
 best("TX", "heart attack")
 best("TX", "heart failure")
@@ -83,3 +83,7 @@ best("MD", "heart attack")
 best("MD", "pneumonia")
 best("BB", "heart attack")
 best("NY", "hert attack")
+
+
+rankhospital("TX", "heart failure", 4)
+
